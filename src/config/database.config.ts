@@ -1,6 +1,6 @@
 import { registerAs } from '@nestjs/config';
 
 export default registerAs('database', () => ({
-    uri: 'we_will_use_live_database_uri_later',
-    dbName: process.env.DB_NAME || 'ims_backend',
+    MONGODB_URI: 'mongodb+srv://freestylewinds777_db_user:i1ycqBvOp4lC3p3E@ims-backend.gkplcjy.mongodb.net/',
+    dbName: 'IMS-backend',
 }));
