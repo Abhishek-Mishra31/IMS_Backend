@@ -17,5 +17,8 @@ import {
             { name: Stock.name, schema: StockSchema },
         ]),
     ],
+    controllers: [],
+    providers: [],
+    exports: [],
 })
 export class InventoryModule { }
