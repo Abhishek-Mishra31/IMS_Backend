@@ -6,16 +6,16 @@ import databaseConfig from '../config/database.config';
 
 @Global()
 @Module({
-  imports: [
-    ConfigModule.forFeature(databaseConfig),
-    MongooseModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGODB_URI'),
-      }),
-    }),
-  ],
-  providers: [DatabaseService],
-  exports: [DatabaseService],
+    imports: [
+        ConfigModule.forFeature(databaseConfig),
+        MongooseModule.forRootAsync({
+            inject: [ConfigService],
+            useFactory: (configService: ConfigService) => ({
+                uri: configService.get<string>('database.MONGODB_URI'),
+            }),
+        }),
+    ],
+    providers: [DatabaseService],
+    exports: [DatabaseService],
 })
-export class DatabaseModule {}
+export class DatabaseModule { }
