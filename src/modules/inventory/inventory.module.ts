@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { InventoryController } from './inventory.controller';
+import { InventoryService } from './inventory.service';
 import {
     Material,
     MaterialSchema,
@@ -17,8 +19,8 @@ import {
             { name: Stock.name, schema: StockSchema },
         ]),
     ],
-    controllers: [],
-    providers: [],
-    exports: [],
+    controllers: [InventoryController],
+    providers: [InventoryService],
+    exports: [InventoryService],
 })
 export class InventoryModule { }
