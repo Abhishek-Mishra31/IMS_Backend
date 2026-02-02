@@ -1,8 +1,29 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
+
+export type UserDocument = HydratedDocument<User>;
+
+export enum UserRole {
+    USER = 'user',
+    ADMIN = 'admin',
+}
+
+export const DEFAULT_PERMISSIONS = {
+    [UserRole.USER]: ['can_view_inventory'],
+    [UserRole.ADMIN]: [
+        'can_create_users',
+        'can_edit_users',
+        'can_view_users',
+        'can_delete_users',
+    ],
+};
+
+export function getDefaultPermissions(role: UserRole): string[] {
+    return DEFAULT_PERMISSIONS[role] || [];
+}
 
 @Schema({ timestamps: true })
-export class User extends Document {
+export class User {
     @Prop({ required: true, unique: true, index: true })
     username: string;
 
@@ -14,6 +35,9 @@ export class User extends Document {
 
     @Prop()
     refreshToken?: string;
+
+    @Prop({ type: String, enum: UserRole, default: UserRole.USER })
+    role: UserRole;
 
     @Prop({ type: [String], default: [] })
     permissions: string[];
