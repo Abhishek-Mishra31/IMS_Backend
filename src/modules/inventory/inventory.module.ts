@@ -7,7 +7,7 @@ import {
     InventorySchema,
     Stock,
     StockSchema,
-} from '../schemas';
+} from '../../schemas';
 
 @Module({
     imports: [
