@@ -50,18 +50,13 @@ export class UsersController {
         return this.usersService.getUserById(id);
     }
 
-    /**
-     * EXAMPLE 4: Using CASL with conditional logic
-     * Admins can update any user, regular users can update themselves
-     */
     @Put(':id')
     @UseGuards(PoliciesGuard)
     @CheckPolicies((ability, user, params) => {
-        // Admin can edit any user
+        
         if (ability.can(Action.Edit, 'users')) {
             return true;
         }
-        // Regular users can edit their own profile
         return params.id === user._id.toString();
     })
     @HttpCode(HttpStatus.OK)
@@ -73,10 +68,6 @@ export class UsersController {
         return this.usersService.updateUser(id, updateUserDto);
     }
 
-    /**
-     * EXAMPLE 5: Using AdminGuard (original approach)
-     * Only admins can update user roles
-     */
     @Patch(':id/role')
     @UseGuards(AdminGuard)
     @HttpCode(HttpStatus.OK)
@@ -87,10 +78,6 @@ export class UsersController {
         return this.usersService.updateUserRole(id, updateUserRoleDto);
     }
 
-    /**
-     * EXAMPLE 6: Using CASL PoliciesGuard
-     * Checks if user has 'can_edit_users' permission
-     */
     @Patch(':id/permissions')
     @UseGuards(PoliciesGuard)
     @CheckPolicies((ability) => ability.can(Action.Edit, 'users'))
@@ -102,10 +89,6 @@ export class UsersController {
         return this.usersService.updateUserPermissions(id, updateUserPermissionsDto);
     }
 
-    /**
-     * EXAMPLE 7: Using CASL PoliciesGuard
-     * Checks if user has 'can_delete_users' permission
-     */
     @Delete(':id')
     @UseGuards(PoliciesGuard)
     @CheckPolicies((ability) => ability.can(Action.Delete, 'users'))

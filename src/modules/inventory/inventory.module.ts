@@ -10,6 +10,7 @@ import {
     Stock,
     StockSchema,
 } from '../../schemas';
+import { CaslModule } from '../casl/casl.module';
 
 @Module({
     imports: [
@@ -18,6 +19,7 @@ import {
             { name: Inventory.name, schema: InventorySchema },
             { name: Stock.name, schema: StockSchema },
         ]),
+        CaslModule,
     ],
     controllers: [InventoryController],
     providers: [InventoryService],
