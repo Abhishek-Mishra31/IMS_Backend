@@ -29,7 +29,7 @@ export class InventoryService {
     
     async update(id: string, data: any): Promise<Inventory> {
         const updatedInventory = await this.inventoryModel
-            .findByIdAndUpdate(id, data, { new: true }) // { new: true } returns the updated document
+            .findByIdAndUpdate(id, data, { new: true })
             .populate('material')
             .exec();
 
@@ -39,7 +39,6 @@ export class InventoryService {
         return updatedInventory;
     }
 
-    // Delete an item
     async remove(id: string): Promise<Inventory> {
         const deletedInventory = await this.inventoryModel.findByIdAndDelete(id).exec();
         if (!deletedInventory) {
