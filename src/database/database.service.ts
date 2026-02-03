@@ -28,7 +28,7 @@ export class DatabaseService implements OnModuleInit {
         const state = this.connection.readyState;
         if (state === 1) {
             this.logger.log('MongoDB connected successfully');
-            this.logger.log(`Database: ${this.connection.db?.databaseName || 'N/A'}`);
+            this.logger.log(`Database URL: ${this.configService.get<string>('database.MONGODB_URI')}`);
         } else {
             this.logger.warn(` MongoDB connection state: ${this.getConnectionState(state)}`);
         }
