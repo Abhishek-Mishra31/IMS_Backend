@@ -2,18 +2,16 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Inventory } from '../../schemas';
-import { CreateInventoryDto } from './dto/create-inventory.dto';
-import { UpdateInventoryDto } from './dto/update-inventory.dto';
 
 @Injectable()
 export class InventoryService {
     constructor(
-
+        
         @InjectModel(Inventory.name) private inventoryModel: Model<Inventory>
     ) { }
 
-    async create(createInventoryDto: CreateInventoryDto): Promise<Inventory> {
-        const createdInventory = new this.inventoryModel(createInventoryDto);
+    async create(data: any): Promise<Inventory> {
+        const createdInventory = new this.inventoryModel(data);
         return createdInventory.save();
     }
 
@@ -28,10 +26,10 @@ export class InventoryService {
         return inventory;
     }
 
-    async update(id: string, updateInventoryDto: UpdateInventoryDto): Promise<Inventory> {
+    
+    async update(id: string, data: any): Promise<Inventory> {
         const updatedInventory = await this.inventoryModel
-            .findByIdAndUpdate(id, updateInventoryDto, { new: true }) // { new: true } returns the updated document
-            .findByIdAndUpdate(id, data, { new: true })
+            .findByIdAndUpdate(id, data, { new: true }) // { new: true } returns the updated document
             .populate('material')
             .exec();
 
@@ -41,6 +39,7 @@ export class InventoryService {
         return updatedInventory;
     }
 
+    // Delete an item
     async remove(id: string): Promise<Inventory> {
         const deletedInventory = await this.inventoryModel.findByIdAndDelete(id).exec();
         if (!deletedInventory) {
