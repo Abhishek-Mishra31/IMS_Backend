@@ -2,16 +2,18 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Inventory } from '../../schemas';
+import { CreateInventoryDto } from './dto/create-inventory.dto';
+import { UpdateInventoryDto } from './dto/update-inventory.dto';
 
 @Injectable()
 export class InventoryService {
     constructor(
-        
+
         @InjectModel(Inventory.name) private inventoryModel: Model<Inventory>
     ) { }
 
-    async create(data: any): Promise<Inventory> {
-        const createdInventory = new this.inventoryModel(data);
+    async create(createInventoryDto: CreateInventoryDto): Promise<Inventory> {
+        const createdInventory = new this.inventoryModel(createInventoryDto);
         return createdInventory.save();
     }
 
@@ -26,10 +28,9 @@ export class InventoryService {
         return inventory;
     }
 
-    
-    async update(id: string, data: any): Promise<Inventory> {
+    async update(id: string, updateInventoryDto: UpdateInventoryDto): Promise<Inventory> {
         const updatedInventory = await this.inventoryModel
-            .findByIdAndUpdate(id, data, { new: true }) // { new: true } returns the updated document
+            .findByIdAndUpdate(id, updateInventoryDto, { new: true }) // { new: true } returns the updated document
             .populate('material')
             .exec();
 
