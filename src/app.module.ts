@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
 import { InventoryModule } from './modules/inventory/inventory.module';
 import { UsersModule } from './modules/users/users.module';
+import { CaslModule } from './modules/casl/casl.module';
 import { DatabaseModule } from './database';
 
 @Module({
@@ -16,6 +17,7 @@ import { DatabaseModule } from './database';
     AuthModule,
     InventoryModule,
     UsersModule,
+    CaslModule,
   ],
   controllers: [AppController],
   providers: [AppService],
