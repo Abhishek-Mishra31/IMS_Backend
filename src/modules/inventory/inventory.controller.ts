@@ -3,6 +3,8 @@ import { InventoryService } from './inventory.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { PermissionsGuard } from '../auth/guards/permissions.guard';
 import { Permissions } from '../auth/decorators/permissions.decorator';
+import { CreateInventoryDto } from './dto/create-inventory.dto';
+import { UpdateInventoryDto } from './dto/update-inventory.dto';
 
 @Controller('inventory')
 @UseGuards(JwtAuthGuard, PermissionsGuard)
@@ -11,7 +13,7 @@ export class InventoryController {
 
     @Post()
     @Permissions('can_create_inventory')
-    create(@Body() createInventoryDto: any) {
+    create(@Body() createInventoryDto: CreateInventoryDto) {
         return this.inventoryService.create(createInventoryDto);
     }
 
@@ -29,7 +31,7 @@ export class InventoryController {
 
     @Patch(':id')
     @Permissions('can_update_inventory')
-    update(@Param('id') id: string, @Body() updateInventoryDto: any) {
+    update(@Param('id') id: string, @Body() updateInventoryDto: UpdateInventoryDto) {
         return this.inventoryService.update(id, updateInventoryDto);
     }
 
