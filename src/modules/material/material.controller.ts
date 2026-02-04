@@ -56,3 +56,4 @@ export class MaterialController {
     return this.materialService.remove(id);
   }
 }
+

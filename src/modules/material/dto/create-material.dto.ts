@@ -1,11 +1,11 @@
+// dto/create-material.dto.ts
 import { IsString, IsNotEmpty, IsObject } from 'class-validator';
 
 export class CreateMaterialDto {
-    @IsString()
-    @IsNotEmpty()
-    name: string;
+  @IsString()
+  @IsNotEmpty()
+  name: string;
 
-    @IsObject()
-    @IsNotEmpty()
-    dimensionTypes: Record<string, string>;
+  @IsObject()
+  dimensionTypes: Record<string, string>;
 }
