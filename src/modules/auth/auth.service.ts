@@ -69,6 +69,18 @@ export class AuthService {
             throw new UnauthorizedException('Invalid credentials');
         }
 
+        // Auto-sync permissions with default permissions for user's role
+        const defaultPermissions = getDefaultPermissions(user.role);
+        const missingPermissions = defaultPermissions.filter(
+            perm => !user.permissions.includes(perm)
+        );
+
+        if (missingPermissions.length > 0) {
+            user.permissions = [...user.permissions, ...missingPermissions];
+            await user.save();
+            this.logger.log(`Synced ${missingPermissions.length} permissions for: ${email}`);
+        }
+
         this.logger.log(`User logged in: ${email}`);
 
         return this.generateAuthResponse(user);
