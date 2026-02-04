@@ -5,7 +5,7 @@ export const CreateStockPolicy = () =>
   CheckPolicies((ability) => ability.can(Action.Create, 'stock'));
 
 export const ReadStockPolicy = () =>
-  CheckPolicies((ability) => ability.can(Action.Read, 'stock'));
+  CheckPolicies((ability) => ability.can(Action.View, 'stock'));
 
 export const UpdateStockPolicy = () =>
   CheckPolicies((ability) => ability.can(Action.Update, 'stock'));

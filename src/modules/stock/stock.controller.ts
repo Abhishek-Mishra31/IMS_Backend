@@ -12,6 +12,7 @@ import {
 import { StockService } from './stock.service';
 import { CreateStockDto } from './dto/create-stock.dto';
 import { UpdateStockDto } from './dto/update-stock.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { PoliciesGuard } from '../casl/guards/policies.guard';
 import {
   CreateStockPolicy,
@@ -21,9 +22,9 @@ import {
 } from './decorators/stock-policies.decorator';
 
 @Controller('stocks')
-@UseGuards(PoliciesGuard)
+@UseGuards(JwtAuthGuard, PoliciesGuard)
 export class StockController {
-  constructor(private readonly service: StockService) {}
+  constructor(private readonly service: StockService) { }
 
   @Post()
   @CreateStockPolicy()
@@ -51,9 +52,7 @@ export class StockController {
 
   @Delete(':id')
   @DeleteStockPolicy()
-  remove(@Param('id') id: string) 
-  
-  {
-    return this.service.delete(id) ;
+  remove(@Param('id') id: string) {
+    return this.service.delete(id);
   }
 }

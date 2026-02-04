@@ -23,6 +23,10 @@ export const DEFAULT_PERMISSIONS = {
     'can_view_material',
     'can_update_material',
     'can_delete_material',
+    'can_create_stock',
+    'can_view_stock',
+    'can_update_stock',
+    'can_delete_stock',
   ],
 };
 
