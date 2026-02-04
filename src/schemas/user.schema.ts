@@ -19,6 +19,10 @@ export const DEFAULT_PERMISSIONS = {
     'can_create_inventory',
     'can_update_inventory',
     'can_delete_inventory',
+    'can_create_material',
+    'can_view_material',
+    'can_update_material',
+    'can_delete_material',
   ],
 };
 

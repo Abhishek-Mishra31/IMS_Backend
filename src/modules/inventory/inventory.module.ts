@@ -12,6 +12,7 @@ import {
 } from '../../schemas';
 import { CloudinaryProvider } from '../../config/cloudinary.config';
 import { CloudinaryService } from './cloudinary.service';
+import { CaslModule } from '../casl/casl.module';
 
 @Module({
     imports: [
@@ -20,6 +21,7 @@ import { CloudinaryService } from './cloudinary.service';
             { name: Inventory.name, schema: InventorySchema },
             { name: Stock.name, schema: StockSchema },
         ]),
+        CaslModule,
     ],
     controllers: [InventoryController],
     providers: [InventoryService,

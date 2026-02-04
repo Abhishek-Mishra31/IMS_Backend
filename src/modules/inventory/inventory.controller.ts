@@ -3,13 +3,12 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { InventoryService } from './inventory.service';
 import { CloudinaryService } from './cloudinary.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { PermissionsGuard } from '../auth/guards/permissions.guard';
-import { Permissions } from '../auth/decorators/permissions.decorator';
-import { CreateInventoryDto } from './dto/create-inventory.dto';
-import { UpdateInventoryDto } from './dto/update-inventory.dto';
+import { PoliciesGuard } from '../casl/guards/policies.guard';
+import { CheckPolicies } from '../casl/decorators/check-policies.decorator';
+import { Action } from '../casl/casl-ability.factory';
 
 @Controller('inventory')
-@UseGuards(JwtAuthGuard, PermissionsGuard)
+@UseGuards(JwtAuthGuard, PoliciesGuard)
 export class InventoryController {
     constructor(
         private readonly inventoryService: InventoryService,
@@ -17,26 +16,8 @@ export class InventoryController {
     ) { }
 
     @Post()
-    @Permissions('can_create_inventory')
-    @UseInterceptors(FileInterceptor('image', {
-        fileFilter: (req, file, cb) => {
-            if (!file.mimetype.match(/\/(jpg|jpeg|png|gif|webp)$/)) {
-                return cb(new Error('Only image files are allowed!'), false);
-            }
-            cb(null, true);
-        },
-        limits: { fileSize: 5 * 1024 * 1024 } 
-    }))
-    async create(
-        @Body() createInventoryDto: CreateInventoryDto,
-        @UploadedFile() file?: Express.Multer.File
-    ) {
-        
-        if (file) {
-            const imageUrl = await this.cloudinaryService.uploadImage(file);
-            createInventoryDto.imageUrl = imageUrl;
-        }
-
+    @CheckPolicies((ability) => ability.can(Action.Create, 'inventory'))
+    create(@Body() createInventoryDto: any) {
         return this.inventoryService.create(createInventoryDto);
     }
 
@@ -48,19 +29,19 @@ export class InventoryController {
 
 
     @Get()
-    @Permissions('can_view_inventory')
+    @CheckPolicies((ability) => ability.can(Action.View, 'inventory'))
     findAll() {
         return this.inventoryService.findAll();
     }
 
     @Get(':id')
-    @Permissions('can_view_inventory')
+    @CheckPolicies((ability) => ability.can(Action.View, 'inventory'))
     findOne(@Param('id') id: string) {
         return this.inventoryService.findOne(id);
     }
 
     @Patch(':id')
-    @Permissions('can_update_inventory')
+    @CheckPolicies((ability) => ability.can(Action.Update, 'inventory'))
     @UseInterceptors(FileInterceptor('image', {
         fileFilter: (req, file, cb) => {
             if (!file.mimetype.match(/\/(jpg|jpeg|png|gif|webp)$/)) {
@@ -76,7 +57,7 @@ export class InventoryController {
 
     async update(
         @Param('id') id: string,
-        @Body() updateInventoryDto: UpdateInventoryDto,
+        @Body() updateInventoryDto: any,
         @UploadedFile() file?: Express.Multer.File
     ) {
         
@@ -113,7 +94,7 @@ export class InventoryController {
     
 
     @Delete(':id')
-    @Permissions('can_delete_inventory')
+    @CheckPolicies((ability) => ability.can(Action.Delete, 'inventory'))
     remove(@Param('id') id: string) {
         return this.inventoryService.remove(id);
     }
