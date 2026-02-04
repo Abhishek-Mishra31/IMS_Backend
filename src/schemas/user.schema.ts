@@ -9,7 +9,7 @@ export enum UserRole {
 }
 
 export const DEFAULT_PERMISSIONS = {
-  [UserRole.USER]: ['can_view_inventory'],
+  [UserRole.USER]: ['can_view_inventory', 'can_view_stock'],
   [UserRole.ADMIN]: [
     'can_create_users',
     'can_edit_users',
