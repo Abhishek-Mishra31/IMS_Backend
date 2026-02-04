@@ -51,7 +51,9 @@ export class StockController {
 
   @Delete(':id')
   @DeleteStockPolicy()
-  remove(@Param('id') id: string) {
-    return this.service.delete(id);
+  remove(@Param('id') id: string) 
+  
+  {
+    return this.service.delete(id) ;
   }
 }
