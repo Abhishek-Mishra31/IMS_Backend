@@ -15,6 +15,8 @@ export class Inventory extends Document {
 
     @Prop({ default: false })
     isHidden: boolean;
+    @Prop()
+    imageUrl?: string;
 }
 
 export const InventorySchema = SchemaFactory.createForClass(Inventory);
