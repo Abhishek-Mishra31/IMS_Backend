@@ -26,13 +26,12 @@ export class InventoryController {
             }
             cb(null, true);
         },
-        limits: { fileSize: 5 * 1024 * 1024 } // 5MB max
+        limits: { fileSize: 5 * 1024 * 1024 }
     }))
     async create(
         @Body() createInventoryDto: CreateInventoryDto,
         @UploadedFile() file?: Express.Multer.File
     ) {
-        // If an image file is uploaded, upload it to Cloudinary first
         if (file) {
             const imageUrl = await this.cloudinaryService.uploadImage(file);
             createInventoryDto.imageUrl = imageUrl;

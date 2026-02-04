@@ -69,7 +69,6 @@ export class AuthService {
             throw new UnauthorizedException('Invalid credentials');
         }
 
-        // Auto-sync permissions with default permissions for user's role
         const defaultPermissions = getDefaultPermissions(user.role);
         const missingPermissions = defaultPermissions.filter(
             perm => !user.permissions.includes(perm)
