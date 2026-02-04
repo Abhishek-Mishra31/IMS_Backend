@@ -3,7 +3,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Material } from '../../schemas/material.schema';
 import { CreateMaterialDto } from './dto/create-material.dto';
+<<<<<<< HEAD
 import { UpdateMaterialDto } from './dto/update-material.dto';
+=======
+>>>>>>> 25a0df2dd4701aec724510bc35dd2a8500363165
 
 @Injectable()
 export class MaterialService {
@@ -12,9 +15,17 @@ export class MaterialService {
     private readonly materialModel: Model<Material>,
   ) { }
 
+<<<<<<< HEAD
   async create(createMaterialDto: CreateMaterialDto) {
     const material = await this.materialModel.create(createMaterialDto);
     return material;
+=======
+  async create(dto: CreateMaterialDto) {
+    return this.materialModel.create({
+      name: dto.name,
+      dimensionTypes: new Map(Object.entries(dto.dimensionTypes)),
+    });
+>>>>>>> 25a0df2dd4701aec724510bc35dd2a8500363165
   }
 
   async findAll() {

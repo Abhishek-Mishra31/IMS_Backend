@@ -12,11 +12,14 @@ import {
 } from '@nestjs/common';
 import { MaterialService } from './material.service';
 import { CreateMaterialDto } from './dto/create-material.dto';
+<<<<<<< HEAD
 import { UpdateMaterialDto } from './dto/update-material.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { PoliciesGuard } from '../casl/guards/policies.guard';
 import { CheckPolicies } from '../casl/decorators/check-policies.decorator';
 import { Action } from '../casl/casl-ability.factory';
+=======
+>>>>>>> 25a0df2dd4701aec724510bc35dd2a8500363165
 
 @Controller('materials')
 @UseGuards(JwtAuthGuard, PoliciesGuard)
@@ -24,10 +27,15 @@ export class MaterialController {
   constructor(private readonly materialService: MaterialService) { }
 
   @Post()
+<<<<<<< HEAD
   @CheckPolicies((ability) => ability.can(Action.Create, 'material'))
   @HttpCode(HttpStatus.CREATED)
   create(@Body() createMaterialDto: CreateMaterialDto) {
     return this.materialService.create(createMaterialDto);
+=======
+  create(@Body() body: CreateMaterialDto) {
+    return this.materialService.create(body);
+>>>>>>> 25a0df2dd4701aec724510bc35dd2a8500363165
   }
 
   @Get()
@@ -56,3 +64,4 @@ export class MaterialController {
     return this.materialService.remove(id);
   }
 }
+
