@@ -39,7 +39,6 @@ export class InventoryService {
 
     }
 
-    // Delete an item
     async remove(id: string): Promise<Inventory> {
         const deletedInventory = await this.inventoryModel.findByIdAndDelete(id).exec();
         if (!deletedInventory) {
