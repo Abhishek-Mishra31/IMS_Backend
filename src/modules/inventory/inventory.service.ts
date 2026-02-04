@@ -37,6 +37,7 @@ export class InventoryService {
             throw new NotFoundException(`Inventory item with ID ${id} not found`);
         }
         return updatedInventory;
+
     }
 
     // Delete an item
