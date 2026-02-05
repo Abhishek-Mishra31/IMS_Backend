@@ -16,6 +16,10 @@ export class CreateInventoryDto {
     @IsNotEmpty()
     material: string;
 
+    @IsMongoId()
+    @IsNotEmpty()
+    warehouse: string;
+
     @IsBoolean()
     @IsOptional()
     @Transform(({ value }) => {
