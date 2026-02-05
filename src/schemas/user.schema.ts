@@ -9,7 +9,12 @@ export enum UserRole {
 }
 
 export const DEFAULT_PERMISSIONS = {
-  [UserRole.USER]: ['can_view_inventory', 'can_view_stock'],
+  [UserRole.USER]: [
+    'can_view_inventory',
+    'can_view_stock',
+    'can_view_orders',
+    'can_create_orders',
+  ],
   [UserRole.ADMIN]: [
     'can_create_users',
     'can_edit_users',
@@ -27,6 +32,10 @@ export const DEFAULT_PERMISSIONS = {
     'can_view_stock',
     'can_update_stock',
     'can_delete_stock',
+    'can_view_orders',
+    'can_create_orders',
+    'can_update_orders',
+    'can_delete_orders',
   ],
 };
 
