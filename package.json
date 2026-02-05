@@ -1,8 +1,8 @@
 {
   "name": "ims-backend-testing",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Backend for Inventory Management System",
+  "author": "Team Backend",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

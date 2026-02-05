@@ -18,6 +18,9 @@ export class Stock extends Document {
 
     @Prop({ required: true })
     quantity: number;
+
+    @Prop({ required: true, min: 0 })
+    price: number;
 }
 
 export const StockSchema = SchemaFactory.createForClass(Stock);

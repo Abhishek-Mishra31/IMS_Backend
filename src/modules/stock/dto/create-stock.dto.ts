@@ -4,6 +4,7 @@ import {
   IsNumber,
   IsObject,
   IsString,
+  Min,
 } from 'class-validator';
 
 export class CreateStockDto {
@@ -23,4 +24,8 @@ export class CreateStockDto {
 
   @IsNumber()
   quantity: number;
+
+  @IsNumber()
+  @Min(0)
+  price: number;
 }
