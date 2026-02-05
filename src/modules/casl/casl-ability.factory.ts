@@ -17,6 +17,7 @@ export type Subjects =
     | 'inventory'
     | 'material'
     | 'stock'
+    | 'warehouse'
     | 'all';
 
 export type AppAbility = Ability<[Action | string, Subjects | string]>;

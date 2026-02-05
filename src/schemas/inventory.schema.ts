@@ -15,6 +15,11 @@ export class Inventory extends Document {
 
     @Prop({ default: false })
     isHidden: boolean;
+    
+    @Prop({ type: Types.ObjectId, ref: 'Warehouse', required: true, index: true })
+    warehouse: Types.ObjectId;
+
+
 }
 
 export const InventorySchema = SchemaFactory.createForClass(Inventory);
