@@ -9,6 +9,8 @@ import {
     InventorySchema,
     Stock,
     StockSchema,
+    Warehouse,
+    WarehouseSchema,
 } from '../../schemas';
 import { CloudinaryProvider } from '../../config/cloudinary.config';
 import { CloudinaryService } from './cloudinary.service';
@@ -20,6 +22,7 @@ import { CaslModule } from '../casl/casl.module';
             { name: Material.name, schema: MaterialSchema },
             { name: Inventory.name, schema: InventorySchema },
             { name: Stock.name, schema: StockSchema },
+            { name: Warehouse.name, schema: WarehouseSchema },
         ]),
         CaslModule,
     ],

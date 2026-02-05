@@ -17,6 +17,10 @@ export class UpdateInventoryDto {
     @IsOptional()
     material?: string;
 
+    @IsMongoId()
+    @IsOptional()
+    warehouse?: string;
+
     @IsBoolean()
     @IsOptional()
     @Transform(({ value }) => {
