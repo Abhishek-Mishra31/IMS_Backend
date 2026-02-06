@@ -10,6 +10,7 @@ import { StockModule } from './modules/stock/stock.module';
 import { OrdersModule } from './modules/orders/order.module';
 import { WarehouseModule } from './modules/warehouse/warehouse.module';
 import { CaslModule } from './modules/casl/casl.module';
+import { QueryModule } from './modules/query/query.module';
 import { DatabaseModule } from './database';
 
 @Module({
@@ -26,6 +27,7 @@ import { DatabaseModule } from './database';
     StockModule,
     OrdersModule,
     WarehouseModule,
+    QueryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
