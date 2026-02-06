@@ -6,6 +6,8 @@ import {
     HttpStatus,
     UseGuards,
     Get,
+    Req,
+    Res,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
@@ -13,6 +15,7 @@ import { LoginDto } from './dto/login.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { AuthResponse } from './interfaces/auth-response.interface';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { GoogleAuthGuard } from './guards/google-auth.guard';
 import { CurrentUser } from './decorators/current-user.decorator';
 import type { UserDocument } from '../../schemas/user.schema';
 
@@ -55,5 +58,21 @@ export class AuthController {
             username: user.username,
             permissions: user.permissions,
         };
+    }
+
+    @Get('google')
+    @UseGuards(GoogleAuthGuard)
+    async googleAuth() {
+    }
+
+    @Get('google/callback')
+    @UseGuards(GoogleAuthGuard)
+    async googleAuthRedirect(@Req() req: any, @Res() res: any) {
+        const authResponse = await this.authService.validateOAuthLogin(req.user);
+
+        const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+        const redirectUrl = `${frontendUrl}/auth/callback?token=${authResponse.accessToken}&refreshToken=${authResponse.refreshToken}`;
+
+        return res.redirect(redirectUrl);
     }
 }
