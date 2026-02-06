@@ -16,6 +16,11 @@ export class CreateInventoryDto {
     @IsNotEmpty()
     material: string;
 
+    // 👇 ADD THIS FIELD 👇
+    @IsMongoId()
+    @IsOptional()
+    warehouse?: string;
+
     @IsBoolean()
     @IsOptional()
     @Transform(({ value }) => {

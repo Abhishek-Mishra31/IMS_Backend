@@ -4,11 +4,17 @@ import {
   IsNumber,
   IsObject,
   IsString,
+  IsOptional, // 👈 Import this
 } from 'class-validator';
 
 export class CreateStockDto {
   @IsMongoId()
   inventory: string;
+
+  // 👇 ADD THIS FIELD 👇
+  @IsMongoId()
+  @IsOptional()
+  warehouse?: string; 
 
   @IsString()
   @IsNotEmpty()
@@ -19,7 +25,8 @@ export class CreateStockDto {
   serialNumber: string;
 
   @IsObject()
-  dimensions: Record<string, number>;
+  @IsOptional() // Make dimensions optional just in case
+  dimensions?: Record<string, number>;
 
   @IsNumber()
   quantity: number;

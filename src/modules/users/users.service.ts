@@ -68,6 +68,10 @@ export class UsersService {
         return user;
     }
 
+  async update(id: string, updateUserDto: any) {
+    return this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true });
+  }
+
     async updateUser(
         userId: string,
         updateUserDto: UpdateUserDto,

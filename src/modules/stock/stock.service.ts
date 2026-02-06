@@ -1,6 +1,4 @@
-// src/stock/stock.service.ts
-import { Injectable } from '@nestjs/common';
-import { Types } from 'mongoose';
+import { Injectable, InternalServerErrorException, BadRequestException } from '@nestjs/common';
 import { Stock } from '../../schemas/stock.schema';
 import { StockRepository } from './repositories/stock.repository';
 import { CreateStockDto } from './dto/create-stock.dto';
@@ -10,15 +8,29 @@ import { UpdateStockDto } from './dto/update-stock.dto';
 export class StockService {
   constructor(private readonly repo: StockRepository) {}
 
-  create(dto: CreateStockDto) {
-    const { inventory, ...rest } = dto;
+  async create(dto: CreateStockDto) {
+    try {
+      // 1. CLEAN THE DATA
+      // If warehouse is an empty string or null, delete the key entirely.
+      // This prevents "Cast to ObjectId failed" errors.
+      if (!dto.warehouse) {
+        delete dto.warehouse;
+      }
 
-    const data: Partial<Stock> = {
-      ...rest,
-      inventory: new Types.ObjectId(inventory),
-    };
+      // 2. PASS DIRECTLY (Let Mongoose handle the ID conversion)
+      // We do NOT need "new Types.ObjectId(dto.inventory)" here.
+      // The Mongoose Schema will automatically cast the string to an ObjectId.
+      return await this.repo.create(dto as any);
 
-    return this.repo.create(data);
+    } catch (error) {
+      // 3. LOG THE ACTUAL ERROR
+      console.error("🔥 ERROR CREATING STOCK:", error.message);
+      
+      if (error.name === 'ValidationError') {
+        throw new BadRequestException(error.message);
+      }
+      throw new InternalServerErrorException(error.message);
+    }
   }
 
   findAll() {
@@ -29,15 +41,16 @@ export class StockService {
     return this.repo.findById(id);
   }
 
-  update(id: string, dto: UpdateStockDto) {
-    const { inventory, ...rest } = dto;
-
-    const data: Partial<Stock> = {
-      ...rest,
-      ...(inventory ? { inventory: new Types.ObjectId(inventory) } : {}),
-    };
-
-    return this.repo.update(id, data);
+  async update(id: string, dto: UpdateStockDto) {
+    try {
+      if (!dto.warehouse) {
+        delete dto.warehouse;
+      }
+      return await this.repo.update(id, dto as any);
+    } catch (error) {
+      console.error("🔥 ERROR UPDATING STOCK:", error.message);
+      throw new InternalServerErrorException(error.message);
+    }
   }
 
   delete(id: string) {
