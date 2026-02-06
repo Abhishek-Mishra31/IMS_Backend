@@ -14,7 +14,6 @@ export class InventoryService {
         const createdInventory = new this.inventoryModel(data);
         const savedInventory = await createdInventory.save();
 
-        // Update warehouse's inventories array
         if (data.warehouse) {
             await this.warehouseModel.updateOne(
                 { _id: data.warehouse },
@@ -63,15 +62,12 @@ export class InventoryService {
             throw new NotFoundException(`Inventory item with ID ${id} not found`);
         }
 
-        // If warehouse is being changed, update both old and new warehouse
         if (data.warehouse && data.warehouse !== oldInventory.warehouse?.toString()) {
-            // Remove from old warehouse
             await this.warehouseModel.updateOne(
                 { _id: oldInventory.warehouse },
                 { $pull: { inventories: id } }
             );
 
-            // Add to new warehouse
             await this.warehouseModel.updateOne(
                 { _id: data.warehouse },
                 { $addToSet: { inventories: id } }
@@ -98,7 +94,6 @@ export class InventoryService {
             throw new NotFoundException(`Inventory item with ID ${id} not found`);
         }
 
-        // Remove from warehouse's inventories array
         if (deletedInventory.warehouse) {
             await this.warehouseModel.updateOne(
                 { _id: deletedInventory.warehouse },

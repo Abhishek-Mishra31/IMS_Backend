@@ -25,7 +25,6 @@ export class Inventory extends Document {
 
 export const InventorySchema = SchemaFactory.createForClass(Inventory);
 
-// Virtual field for stock items
 InventorySchema.virtual('stock', {
   ref: 'Stock',
   localField: '_id',
