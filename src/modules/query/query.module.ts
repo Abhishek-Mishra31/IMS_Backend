@@ -14,4 +14,8 @@ import { CaslModule } from '../casl/casl.module';
     providers: [QueryService],
     exports: [QueryService],
 })
+<<<<<<< HEAD
 export class QueryModule { }
+=======
+export class QueryModule { }
+>>>>>>> 1dde1c5e03416d0b09edd374d4e8977003b79ac6

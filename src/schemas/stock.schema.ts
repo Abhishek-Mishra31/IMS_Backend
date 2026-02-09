@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
+import { Schema as MongooseSchema } from 'mongoose';
 import { Inventory } from './inventory.schema';
 
 @Schema({ timestamps: true })
@@ -19,8 +20,9 @@ export class Stock extends Document {
     @Prop({ required: true })
     quantity: number;
 
-    @Prop({ required: true, min: 0 })
-    price: number;
+// ✅ Correct: No "required: true"
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Warehouse' }) 
+  warehouse: string;
 }
 
 export const StockSchema = SchemaFactory.createForClass(Stock);

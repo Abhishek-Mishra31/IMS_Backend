@@ -61,4 +61,8 @@ export class Order extends Document {
   @Prop({ type: String, enum: ['card', 'paypal', 'cash'] })
   paymentMethod: string;
 }
+<<<<<<< HEAD
 export const OrderSchema = SchemaFactory.createForClass(Order);
+=======
+export const OrderSchema = SchemaFactory.createForClass(Order);
+>>>>>>> 1dde1c5e03416d0b09edd374d4e8977003b79ac6

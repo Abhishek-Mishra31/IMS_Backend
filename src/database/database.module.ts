@@ -12,6 +12,7 @@ import databaseConfig from '../config/database.config';
             inject: [ConfigService],
             useFactory: (configService: ConfigService) => ({
                 uri: configService.get<string>('database.MONGODB_URI'),
+                // Note: No extra options needed for Mongoose 7/8/9+
             }),
         }),
     ],

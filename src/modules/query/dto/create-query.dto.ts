@@ -28,4 +28,8 @@ export class CreateQueryDto {
     @MinLength(10)
     @MaxLength(1000)
     message: string;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1dde1c5e03416d0b09edd374d4e8977003b79ac6

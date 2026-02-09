@@ -43,6 +43,13 @@ export class UsersController {
         return this.usersService.getAllUsers();
     }
 
+    @Patch(':id')
+    @UseGuards(PoliciesGuard) // 👈 Added Missing Guard
+    @CheckPolicies((ability) => ability.can(Action.Edit, 'users'))
+    update(@Param('id') id: string, @Body() updateUserDto: any) {
+        return this.usersService.update(id, updateUserDto);
+    }
+
     @Get(':id')
     @UseGuards(PoliciesGuard)
     @CheckPolicies((ability) => ability.can(Action.View, 'users'))
@@ -53,7 +60,7 @@ export class UsersController {
     @Put(':id')
     @UseGuards(PoliciesGuard)
     @CheckPolicies((ability, user, params) => {
-        
+
         if (ability.can(Action.Edit, 'users')) {
             return true;
         }
