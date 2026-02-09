@@ -65,4 +65,8 @@ export class OrdersController {
   cancel(@Param('id') id: string) {
     return this.ordersService.cancel(id);
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1dde1c5e03416d0b09edd374d4e8977003b79ac6

@@ -7,7 +7,11 @@ import { AuthModule } from './modules/auth/auth.module';
 import { InventoryModule } from './modules/inventory/inventory.module';
 import { UsersModule } from './modules/users/users.module';
 import { MaterialModule } from './modules/material/material.module';
+import { StockModule } from './modules/stock/stock.module';
+import { OrdersModule } from './modules/orders/order.module';
+import { WarehouseModule } from './modules/warehouse/warehouse.module';
 import { CaslModule } from './modules/casl/casl.module';
+import { QueryModule } from './modules/query/query.module';
 import { DatabaseModule } from './database';
 import databaseConfig from './config/database.config';
 
@@ -29,11 +33,10 @@ import { QueryModule } from './modules/query/query.module';
     MaterialModule,
     UsersModule,
     CaslModule,
-    StockModule, 
-    WarehouseModule,
+    StockModule,
     OrdersModule,
-    QueryModule    
-
+    WarehouseModule,
+    QueryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

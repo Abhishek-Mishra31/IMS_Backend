@@ -22,6 +22,10 @@ export class WarehouseRepository {
         path: 'inventories',
         populate: [
           { path: 'material' },
+<<<<<<< HEAD
+=======
+          { path: 'stock' }
+>>>>>>> 1dde1c5e03416d0b09edd374d4e8977003b79ac6
         ]
       });
   }
@@ -33,6 +37,10 @@ export class WarehouseRepository {
         path: 'inventories',
         populate: [
           { path: 'material' },
+<<<<<<< HEAD
+=======
+          { path: 'stock' }
+>>>>>>> 1dde1c5e03416d0b09edd374d4e8977003b79ac6
         ]
       });
   }
@@ -44,4 +52,8 @@ export class WarehouseRepository {
   delete(id: string) {
     return this.warehouseModel.findByIdAndDelete(id);
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1dde1c5e03416d0b09edd374d4e8977003b79ac6

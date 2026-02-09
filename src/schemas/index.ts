@@ -3,3 +3,6 @@ export * from './user.schema';
 export * from './material.schema';
 export * from './inventory.schema';
 export * from './stock.schema';
+export * from './order.schema';
+export * from './warehouse.schema';
+export * from './query.schema';

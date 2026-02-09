@@ -1,8 +1,8 @@
 {
   "name": "ims-backend-testing",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Backend for Inventory Management System",
+  "author": "Team Backend",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -37,6 +37,8 @@
     "multer": "^2.0.2",
     "multer-storage-cloudinary": "^2.2.1",
     "passport": "^0.7.0",
+    "passport-github2": "^0.1.12",
+    "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",

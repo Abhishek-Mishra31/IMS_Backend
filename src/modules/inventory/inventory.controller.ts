@@ -26,13 +26,12 @@ export class InventoryController {
             }
             cb(null, true);
         },
-        limits: { fileSize: 5 * 1024 * 1024 } // 5MB max
+        limits: { fileSize: 5 * 1024 * 1024 }
     }))
     async create(
         @Body() createInventoryDto: CreateInventoryDto,
         @UploadedFile() file?: Express.Multer.File
     ) {
-        // If an image file is uploaded, upload it to Cloudinary first
         if (file) {
             const imageUrl = await this.cloudinaryService.uploadImage(file);
             createInventoryDto.imageUrl = imageUrl;
@@ -40,13 +39,6 @@ export class InventoryController {
 
         return this.inventoryService.create(createInventoryDto);
     }
-
-
-
-
-
-
-
 
     @Get()
     @CheckPolicies((ability) => ability.can(Action.View, 'inventory'))
@@ -69,32 +61,27 @@ export class InventoryController {
             }
             cb(null, true);
         },
-        limits: { fileSize: 5 * 1024 * 1024 } // 5MB max
+        limits: { fileSize: 5 * 1024 * 1024 }
     }))
     async update(
         @Param('id') id: string,
         @Body() updateInventoryDto: UpdateInventoryDto,
         @UploadedFile() file?: Express.Multer.File
     ) {
-        // If a new image file is uploaded
+        
         if (file) {
-            // Get the current inventory item to retrieve old image URL
             const existingItem = await this.inventoryService.findOne(id);
 
-            // Delete old image from Cloudinary if it exists
             if (existingItem?.imageUrl) {
                 try {
                     await this.cloudinaryService.deleteImage(existingItem.imageUrl);
                 } catch (error) {
-                    // Log error but continue with update
                     console.error('Failed to delete old image:', error);
                 }
             }
 
-            // Upload new image to Cloudinary
             const imageUrl = await this.cloudinaryService.uploadImage(file);
 
-            // Create a new object to ensure we include the new imageUrl
             const updatedData = {
                 ...updateInventoryDto,
                 imageUrl: imageUrl
@@ -105,9 +92,6 @@ export class InventoryController {
 
         return this.inventoryService.update(id, updateInventoryDto);
     }
-
-
-
 
     @Delete(':id')
     @CheckPolicies((ability) => ability.can(Action.Delete, 'inventory'))

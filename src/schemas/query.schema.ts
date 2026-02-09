@@ -22,4 +22,8 @@ export class Query extends Document {
     status: string;
 }
 
+<<<<<<< HEAD
 export const QuerySchema = SchemaFactory.createForClass(Query);
+=======
+export const QuerySchema = SchemaFactory.createForClass(Query);
+>>>>>>> 1dde1c5e03416d0b09edd374d4e8977003b79ac6

@@ -32,4 +32,8 @@ export class WarehouseService {
     if (!deleted) throw new NotFoundException('Warehouse not found');
     return { message: 'Warehouse deleted' };
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 1dde1c5e03416d0b09edd374d4e8977003b79ac6
