@@ -96,12 +96,12 @@ export class AppService {
         },
       },
       notes: [
-        '🔐 Most endpoints require JWT authentication via Bearer token in Authorization header',
-        '📝 Permission-based access control is implemented using CASL',
-        '📤 Inventory endpoints support multipart/form-data for image uploads (max 5MB)',
-        '🔄 OAuth authentication redirects to frontend with tokens in query parameters',
+        'Most endpoints require JWT authentication via Bearer token in Authorization header',
+        'Permission-based access control is implemented using CASL',
+        'Inventory endpoints support multipart/form-data for image uploads (max 5MB)',
+        'OAuth authentication redirects to frontend with tokens in query parameters',
       ],
-      status: 'Server is running successfully! 🚀',
+      status: 'Server is running successfully! ',
       timestamp: new Date().toISOString(),
     };
   }
