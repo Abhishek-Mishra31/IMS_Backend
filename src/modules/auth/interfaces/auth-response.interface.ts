@@ -6,5 +6,7 @@ export interface AuthResponse {
         email: string;
         username: string;
         permissions: string[];
+        phoneNumber?: string;
+        location?: string;
     };
 }

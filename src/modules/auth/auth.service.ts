@@ -26,7 +26,7 @@ export class AuthService {
     ) { }
 
     async register(registerDto: RegisterDto): Promise<AuthResponse> {
-        const { username, email, password } = registerDto;
+        const { username, email, password, phoneNumber, location } = registerDto;
 
         const existingUser = await this.userModel.findOne({
             $or: [{ email }, { username }],
@@ -44,6 +44,8 @@ export class AuthService {
             username,
             email,
             password: hashedPassword,
+            phoneNumber,
+            location,
             role: UserRole.USER,
             permissions: getDefaultPermissions(UserRole.USER),
         });
@@ -144,7 +146,7 @@ export class AuthService {
             await user.save();
             this.logger.log(`New OAuth user created: ${email} (${provider})`);
         } else {
-          
+
             const defaultPermissions = getDefaultPermissions(user.role);
             const missingPermissions = defaultPermissions.filter(
                 perm => !user!.permissions.includes(perm)
@@ -179,6 +181,8 @@ export class AuthService {
             username: user.username,
             role: user.role,
             permissions: user.permissions,
+            phoneNumber: user.phoneNumber,
+            location: user.location,
         };
 
         const accessToken = this.jwtService.sign(payload, {
@@ -209,6 +213,8 @@ export class AuthService {
                 email: user.email,
                 username: user.username,
                 permissions: user.permissions,
+                phoneNumber: user.phoneNumber,
+                location: user.location,
             },
         };
     }
