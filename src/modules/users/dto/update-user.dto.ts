@@ -24,4 +24,23 @@ export class UpdateUserDto {
     @IsString({ each: true })
     @IsOptional()
     permissions?: string[];
+
+    @IsString()
+    @IsOptional()
+    phoneNumber?: string;
+
+    @IsString()
+    @IsOptional()
+    location?: string;
+}
+
+export class UpdateUserRoleDto {
+    @IsEnum(UserRole)
+    role: UserRole;
+}
+
+export class UpdateUserPermissionsDto {
+    @IsArray()
+    @IsString({ each: true })
+    permissions: string[];
 }

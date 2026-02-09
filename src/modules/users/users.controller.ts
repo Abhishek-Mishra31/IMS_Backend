@@ -18,9 +18,7 @@ import { PoliciesGuard } from '../casl/guards/policies.guard';
 import { CheckPolicies } from '../casl/decorators/check-policies.decorator';
 import { Action } from '../casl/casl-ability.factory';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { UpdateUserRoleDto } from './dto/update-user-role.dto';
-import { UpdateUserPermissionsDto } from './dto/update-user-permissions.dto';
+import { UpdateUserDto, UpdateUserRoleDto, UpdateUserPermissionsDto } from './dto/update-user.dto';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import type { UserDocument } from '../../schemas/user.schema';
 
@@ -53,7 +51,7 @@ export class UsersController {
     @Put(':id')
     @UseGuards(PoliciesGuard)
     @CheckPolicies((ability, user, params) => {
-        
+
         if (ability.can(Action.Edit, 'users')) {
             return true;
         }

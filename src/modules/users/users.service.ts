@@ -4,9 +4,7 @@ import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { User, UserDocument, UserRole, getDefaultPermissions } from '../../schemas/user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { UpdateUserPermissionsDto } from './dto/update-user-permissions.dto';
-import { UpdateUserRoleDto } from './dto/update-user-role.dto';
+import { UpdateUserDto, UpdateUserPermissionsDto, UpdateUserRoleDto } from './dto/update-user.dto';
 
 
 @Injectable()
@@ -14,7 +12,7 @@ export class UsersService {
     constructor(@InjectModel(User.name) private userModel: Model<User>) { }
 
     async createUser(createUserDto: CreateUserDto): Promise<UserDocument> {
-        const { username, email, password, role, permissions } = createUserDto;
+        const { username, email, password, role, permissions, phoneNumber, location } = createUserDto;
 
         const existingUser = await this.userModel.findOne({
             $or: [{ email }, { username }],
@@ -35,6 +33,8 @@ export class UsersService {
             password: hashedPassword,
             role: userRole,
             permissions: userPermissions,
+            phoneNumber,
+            location,
         });
 
         const savedUser = await user.save();

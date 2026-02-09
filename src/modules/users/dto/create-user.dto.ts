@@ -24,4 +24,11 @@ export class CreateUserDto {
     @IsString({ each: true })
     @IsOptional()
     permissions?: string[];
+
+    @IsString()
+    phoneNumber?: string;
+
+    @IsString()
+    @IsOptional()
+    location?: string;
 }
